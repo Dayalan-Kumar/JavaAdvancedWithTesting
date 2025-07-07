@@ -65,4 +65,24 @@ class ProductTest {
 
     }
 
+    // each and every property of record class is being compared here
+    @Test
+    void createProductComparison(){
+        //given
+        //not passing type below, in order to call the custom constructor
+        var product = new Product("IPhone",
+                new BigDecimal("99.99"),
+                "Electronics1"
+        );
+        var product1 = new Product("IPhone",
+                new BigDecimal("99.99"),
+                "Electronics"
+        );
+        //when
+
+        //then
+        assertEquals(product, product1);
+
+    }
+
 }

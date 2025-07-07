@@ -1,6 +1,7 @@
 package com.java.advanced.records;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 // Records classes are immutable data holders - just to hold data
 // Available from java 17
@@ -26,5 +27,26 @@ public record Product(String name,
     //the custom constructor should always call the
     public Product(String name, BigDecimal cost){
         this(name,cost, "GENERAL");
+    }
+
+    // in test cases, if we don't want to compare each and every property of record class we need to override
+    // equals and hashcode
+    // in the test case method createProductComparison(), where we changed the type "Electronics1" earlier
+    // and tested it is failing, because it compares each and every attribute
+    // Now we commented out the 'type' as below, now if we execute the test case it will get succeed. because
+    // 'type' will not be considered for equality check now.
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(name, product.name)
+               // && Objects.equals(type, product.type)
+                && Objects.equals(cost, product.cost);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cost, type);
     }
 }
