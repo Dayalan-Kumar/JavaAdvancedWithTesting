@@ -5,4 +5,8 @@ package com.java.advanced.sealed;
 //non-sealed keyword -any class can extend the Car subclass
 
 public sealed class Car extends Vehicle permits FlyingCar {
+    @Override
+    public String drive() {
+        return "CAR";
+    }
 }
