@@ -1,4 +1,4 @@
 package com.java.advanced.sealed;
 
-public class Car extends Vehicle{
+public final class Car extends Vehicle{
 }
