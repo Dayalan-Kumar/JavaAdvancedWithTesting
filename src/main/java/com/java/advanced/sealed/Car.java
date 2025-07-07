@@ -1,4 +1,8 @@
 package com.java.advanced.sealed;
 
-public final class Car extends Vehicle{
+// sealed keyword - car class is subclass it can also be sealed by using sealed keyword using permits
+
+//non-sealed keyword -any class can extend the Car subclass
+
+public sealed class Car extends Vehicle permits FlyingCar {
 }
