@@ -14,5 +14,27 @@ public class PatternMatchingExample {
         return "Not a string or Integer";
     }
 
+    // Pattern Matching using instanceof java 16
+
+        public String patternMatchingExampleInstanceOf(Object o) {
+            if (o instanceof Integer i) {
+                return "Integer:" + i;
+            }
+            if (o instanceof String s) {
+                return "String of length:" + s.length();
+            }
+            return "Not a string or Integer";
+        }
+
+
+    // Pattern Matching using instanceof java 21
+
+    public String patternUsingSwitch(Object o) {
+       return switch (o){
+           case String s -> "String of length:" + s.length();
+           case Integer i -> "Integer:" + i;
+           case null, default -> "Not a string or Integer";
+       };
+    }
 
 }
