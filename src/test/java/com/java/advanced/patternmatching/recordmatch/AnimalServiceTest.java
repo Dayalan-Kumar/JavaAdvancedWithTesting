@@ -27,6 +27,13 @@ class AnimalServiceTest {
         assertEquals(expectedResult, name);
     }
 
+    @Test
+    void retrieveNameUsingGuardedPattern(){
+        //pass null value for name variable for guarded pattern test case
+        var name = animalService.retrieveNameUsingGuardedPattern(new Cat(null,"Black"));
+        assertEquals(" ", name);
+    }
+
     private static Stream<Arguments> input(){
         return Stream.of(
                 Arguments.of(new Cat("Kitty", "Black"), "Kitty"),

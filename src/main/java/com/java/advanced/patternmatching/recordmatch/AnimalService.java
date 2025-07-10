@@ -19,5 +19,15 @@ public class AnimalService {
             case Dog(var name, var color)-> name;
         };
     }
+
+    //Guarded pattern is where we can appply the checks on the binding variable
+    public String retrieveNameUsingGuardedPattern(Animal animal){
+        return switch (animal){
+            case null -> "";
+            case Cat(var name, var color) when name == null -> " ";
+            case Cat(var name, var color) -> name;
+            case Dog(var name, var color)-> name;
+        };
+    }
 }
 
