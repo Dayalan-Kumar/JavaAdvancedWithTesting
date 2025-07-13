@@ -1,15 +1,18 @@
 package com.java.advanced.http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MoviesClient {
@@ -51,6 +54,19 @@ public class MoviesClient {
                     throw new RuntimeException(e);
                 }
             });
+        }catch (Exception e){
+            System.err.println(e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<Movie> getAllMovies(){
+        var request =  requestBuilder(ALL_MOVIES_URL);
+        try {
+            var response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            System.out.println("response status code============"+response.statusCode());
+            System.out.println("Response Body is : "+response.body());
+            return objectMapper.readValue(response.body(), new TypeReference<>() {});
         }catch (Exception e){
             System.err.println(e);
             throw new RuntimeException(e);

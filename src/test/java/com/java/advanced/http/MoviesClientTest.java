@@ -22,4 +22,10 @@ class MoviesClientTest {
         assertEquals("Batman Begins", movie.name());
     }
 
+    @Test
+    void getAllMovies(){
+        var moviesList = moviesClient.getAllMovies();
+        assert moviesList.size() == 10;
+    }
+
 }
