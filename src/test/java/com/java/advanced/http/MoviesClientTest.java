@@ -15,4 +15,11 @@ class MoviesClientTest {
         assertEquals("Batman Begins", movie.name());
     }
 
+    @Test
+    void getMovieByIdAsync(){
+        var movie = moviesClient.getMovieByIdAsync().join();
+        assertNotNull(movie);
+        assertEquals("Batman Begins", movie.name());
+    }
+
 }

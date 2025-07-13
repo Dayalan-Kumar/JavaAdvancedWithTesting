@@ -1,5 +1,6 @@
 package com.java.advanced.http;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -9,6 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
+import java.util.concurrent.CompletableFuture;
 
 public class MoviesClient {
 
@@ -34,6 +36,25 @@ public class MoviesClient {
             System.err.println(e);
             throw new RuntimeException(e);
        }
+    }
+
+    public CompletableFuture<Movie> getMovieByIdAsync(){
+        var request =  requestBuilder(MOVIES_BY_ID_URL);
+        try {
+            var response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+
+            return response.thenApply(httpResponse -> {
+                System.out.println("Status code as : "+httpResponse.statusCode());
+                try {
+                    return objectMapper.readValue(httpResponse.body(), Movie.class);
+                } catch (JsonProcessingException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+        }catch (Exception e){
+            System.err.println(e);
+            throw new RuntimeException(e);
+        }
     }
 
     public static HttpRequest requestBuilder(String url){
